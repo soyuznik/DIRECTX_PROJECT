@@ -16,12 +16,16 @@
 #include <string>
 #include <Psapi.h>
 #include "mmsystem.h"
-
+#include <memory>
 
 #define SHOWERROR(s,f,l)	char buf[1024]; sprintf( buf, "File: %s\nLine: %d\n%s",f,l,s); MessageBox( 0, buf, "Error", 0 );
 #define SAFE_DELETE(x)		if( x ) { delete(x); (x) = NULL; }
 #define SAFE_RELEASE(x) if( x ) { (x)->Release(); (x) = NULL; }
 #define SAFE_DELETE_ARRAY(x) if( x ) { delete [] (x); (x) = NULL; }
+#define SAFE_ALLOC(x) auto ptr = new x; shared_ptr<x> obj(ptr);
+
+
+
 
 using namespace std;
 
@@ -513,7 +517,8 @@ void InitResources( void )
 
 	for(int i=0;i<9;i++)
 	{
-		Enemy *enem = new Enemy (  (char*)string(string(DirPath)+"\\Models\\soldier\\soldier.x").c_str() , "Data\\models_md2\\igdosh.pcx",  "Models/Gun1/3rd Person.x" , "Data\\models_md2\\Weapon.pcx" );
+		Enemy *enem = new Enemy (  (char*)string(string(DirPath)+"\\Models\\soldier\\soldier.x").c_str() , 
+			"Data\\models_md2\\igdosh.pcx",  "Models/Gun1/3rd Person.x" , "Data\\models_md2\\Weapon.pcx" );
 		enem->Scale( Vector3(.007,.008,.007) );
 		//enem->pos =  Vector3( i*2,1.f,i);
 		enem->pos =  Vector3( i*2,1.f,i+5);

@@ -12,6 +12,9 @@ public:
 	{
 		set(0,0,0,0);
 	}
+	~Vector3() {
+		
+	}
 	Vector3(float x,float y,float z,float w=0)
 	{
 		 set( x,y,z,w);

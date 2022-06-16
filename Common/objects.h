@@ -16,7 +16,7 @@ public:
 	~Polygen()
 	{
 		//for(int i=0;i< total_verts ; i++)
-		//SAFE_DELETE( vertix );
+		SAFE_DELETE_ARRAY(vertix);
 	}
 
 
@@ -225,6 +225,7 @@ public:
 
 			this->CollideWithPolygen( &tri  );
 		}
+		
 	}
 
 	bool CollideToPlane(Vector3 pNormal,Vector3 pPoint,float planeRange ,OUT float &distance,bool &nearest )
@@ -354,7 +355,7 @@ public:
 class Gun
 {
 public:
-	vector<Bullet*>bullets;
+	vector<Bullet*> bullets;
 	Vector3 pos;
 	Vector3 dir;
 	float bulletSpeed;

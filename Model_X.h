@@ -165,6 +165,8 @@ public:
 
 	void GetVerticesX(LPD3DXMESH g_pMesh)
 	{
+
+	
 		DWORD stride =  D3DXGetFVFVertexSize(g_pMesh->GetFVF());
 		BYTE* vbptr = NULL;
 		g_pMesh->LockVertexBuffer(0, (LPVOID*)&vbptr);
