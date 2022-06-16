@@ -97,7 +97,6 @@
     <ClInclude Include="Common\timer.h" />
     <ClInclude Include="Common\vector3.h" />
     <ClInclude Include="functions.h" />
-    <ClInclude Include="HLSLShader.h" />
     <ClInclude Include="MapTree.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model_X.h" />

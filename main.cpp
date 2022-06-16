@@ -125,8 +125,8 @@ void render(void);
 int WINAPI WinMain(	HINSTANCE hInstance,
 					HINSTANCE hPrevInstance,
 					LPSTR     lpCmdLine,
-					int       nCmdShow )
-{
+					int       nCmdShow ){
+	ShowCursor(FALSE);
 	WNDCLASSEX winClass; 
 	MSG        uMsg;
 
@@ -164,6 +164,8 @@ int WINAPI WinMain(	HINSTANCE hInstance,
 
 	init();
 
+
+//////////////////////////////////// MAINLOOP //////////////////////////////////////////////////////////
 	while( uMsg.message != WM_QUIT )
 	{
 		if( PeekMessage( &uMsg, NULL, 0, 0, PM_REMOVE ) )
@@ -246,9 +248,10 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				int diff_y = ptCurrentMousePosit.y - ptLastMousePosit.y;
 
 				if(!player ) break;
-
-				player->angle += (diff_x ) *  .005;
-				angle_y -= (diff_y)*.005;
+//////////////////////////////////////// MOUSE SENSITIVITY ////////////////////////////////////////////////////////////////////
+				const double mouse_sensitivity = .002;
+				player->angle += (diff_x ) *  mouse_sensitivity;
+				angle_y -= (diff_y)* mouse_sensitivity;
 
 				player->dir.x = sin( player->angle );
 				player->dir.z = cos( player->angle );
@@ -508,7 +511,7 @@ void InitResources( void )
 	player->lhw = Vector3( .5,1.0f,.5f );
 	player->gunModel = model_Gun ;
 
-	for(int i=0;i<1;i++)
+	for(int i=0;i<9;i++)
 	{
 		Enemy *enem = new Enemy (  (char*)string(string(DirPath)+"\\Models\\soldier\\soldier.x").c_str() , "Data\\models_md2\\igdosh.pcx",  "Models/Gun1/3rd Person.x" , "Data\\models_md2\\Weapon.pcx" );
 		enem->Scale( Vector3(.007,.008,.007) );
@@ -569,8 +572,7 @@ void render( void )
 
 	PROCESS_MEMORY_COUNTERS pmc;
 	GetProcessMemoryInfo(hProcess,&pmc,sizeof(pmc));
-	char str[500];sprintf(str,"fps : %d \nProcess Memory : %d K",CalculateFPS(),pmc.WorkingSetSize/1024);
-	PushString( str );
+	
 
     g_pd3dDevice->BeginScene();
 	{
