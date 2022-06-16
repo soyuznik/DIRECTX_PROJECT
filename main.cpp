@@ -12,6 +12,8 @@
 #include <windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
+
+#include <d3d10.h>
 #include <vector>  
 #include <string>
 #include <Psapi.h>
@@ -414,9 +416,10 @@ void init( void )
     g_pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, g_hWnd,
                           D3DCREATE_HARDWARE_VERTEXPROCESSING,
                           &d3dpp, &g_pd3dDevice );
+	
 
 	InitResources();
-	//initEffect(  );
+	
 
     D3DXMatrixPerspectiveFovLH( &g_matProj, D3DXToRadian( 60.0f ), 
                                 1.0f , 0.1f, 100.0f );
@@ -597,6 +600,7 @@ void render( void )
 				player->gun->Draw( );
 				player->gun->StepUpBullets();
 			//End
+			PushString(string() + "Frames:" + to_string(CalculateFPS()));
 			PushString( string() + "Player-Health:" + to_string( player->health )  );
 			PushString( string()+"Bullets Counter :" + to_string(player->gun->bullets.size()));
 	//	//End
@@ -852,11 +856,12 @@ void render( void )
 	}
     g_pd3dDevice->EndScene();
 
-
+	
 
 	DrawString(m_font,5,5,D3DXCOLOR(1.f,1.f,1.f,1.f), str_hud );
 	str_hud.clear();
-
+	
     g_pd3dDevice->Present( NULL, NULL, NULL, NULL );
+
 }
 
